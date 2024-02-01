@@ -22,6 +22,7 @@ struct Tid
 
 struct Tid storst(const struct Tid tid1, const struct Tid tid2);
 
+
 int main()
 {
     Tid nr1, nr2, nr3, nr4;
@@ -30,17 +31,44 @@ int main()
     nr1.minutt= 1;
     nr1.sekund = 1;
 
-    nr2.time = 2;
+    nr2.time = 1;
     nr2.minutt = 2;
     nr2.sekund = 2;
 
-    nr3.time = 3;
-    nr3.minutt = 3;
+    nr3.time = 1;
+    nr3.minutt = 2;
     nr3.sekund = 3;
 
     nr4.time = 4;
     nr4.minutt = 4;
     nr4.sekund = 4;
+
+    Tid stoerst = storst(nr1, nr2);
+
+   //Print stoerst tid
+    cout << "Den stoerste tiden er: "    
+         << stoerst.time << " timer, " 
+         << stoerst.minutt << " minutt, "
+         << stoerst.sekund << " sekund.\n";
+
+
+    stoerst = storst(stoerst, nr3);
+
+    //Print stoerst tid
+    cout << "Den stoerste tiden er: "    
+         << stoerst.time << " timer, " 
+         << stoerst.minutt << " minutt, "
+         << stoerst.sekund << " sekund.\n";
+
+
+    stoerst = storst(stoerst, nr4);
+
+    //Print stoerst tid
+    cout << "Den stoerste tiden er: "    
+         << stoerst.time << " timer, " 
+         << stoerst.minutt << " minutt, "
+         << stoerst.sekund << " sekund.\n";
+
 
     return 0;
 }
