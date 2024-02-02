@@ -5,6 +5,13 @@
 
 #include <iostream>
 #include <iomanip>
+#include <cctype>
+#include <cstdlib>
+
+const int MAXCHAR = 200;
+
+
+int lesTall(const char* t, const int min, const int max);
 
 
 
@@ -17,17 +24,25 @@
  * 
  * @return Godtatt verdi i intervallet min og max
 */
-inline int lesTallTegn(const char t[], const int min, const int max)
+inline int lesTall(const char* t, const int min, const int max)
 {
-    int tallTegn;
+    char buffer[MAXCHAR] = "";
+    int tall;
+    bool feil = false;
     do
     {
+        feil = false;
         std::cout << "\t" << t << " (" << std::setw(2) << min << " - " << 
         std::setw(2) << max << ")    ";
-        std::cin >> tallTegn; 
+        std::cin.getline(buffer, MAXCHAR);
+        tall = atoi(buffer);
+        if (tall == 0 && buffer[0] != '0')
+        {
+            feil = true; std::cout << "\nERROR: Not an integer!\n\n";
+        }
     }    
-    while (tallTegn < min || tallTegn > max);
-    return tallTegn;
+    while (feil || tall < min || tall > max);
+    return tall;
 }
 
 #endif // LESDATA2_H

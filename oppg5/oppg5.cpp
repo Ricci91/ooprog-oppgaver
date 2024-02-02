@@ -23,7 +23,7 @@ struct Forelesning
 };
 
 void forelesningLesData(Forelesning *f);
-void foreledningSkrivData(Forelesning *f);
+void forelesningSkrivData(const Forelesning *f);
 
 int main()
 {
@@ -35,37 +35,47 @@ int main()
     int antFore = 0;
 
     // Les inn antall forelesninger
-    antFore = lesTallTegn("Skriv inn hvor mange forelesninger: ",
+    antFore = lesTall("Skriv inn hvor mange forelesninger: ",
                           1, MAXFORELESNINGER);
 
     // For loop som leser inn emne, foreleser og sted
     for (int i = 0; i < antFore; i++)
     {
-        cout << "Skriv inn emne: ";
-        cin >> forelesninger[i].emne;
-        cout << "\nSkriv inn foreleser: ";
-        cin >> forelesninger[i].foreleser;
-        cout << "\nSkriv inn sted: ";
-        cin >> forelesninger[i].sted;
-        cout << "\nSkriv inn når timen starter (time minutt): ";
-        cin >> forelesninger[i].timeStart >> forelesninger[i].minuttStart;
-        cout << "\nSkriv inn når timen slutter (time minutt): ";
-        cin >> forelesninger[i].timeSlutt >> forelesninger[i].minuttSlutt;
-        cout << "\n";
+        cout << "\nData om forelesning nr." << i + 1 << ":\n";
+        forelesningLesData(&forelesninger[i]);
     }
 
     // For loop som skriver ut data som er lagt inn
     for (int i = 0; i < antFore; i++)
     {
-        cout << "Info om forelesning nr: " << i
-             << "\nEmne: " << forelesninger[i].emne
-             << "\nForeleser: " << forelesninger[i].foreleser
-             << "\nSted: " << forelesninger[i].sted
-             << "\nTimen starter: " << forelesninger[i].timeStart
-             << ":" << forelesninger[i].minuttStart
-             << "\nTimen slutter: " << forelesninger[i].timeSlutt
-             << ":" << forelesninger[i].minuttSlutt << "\n\n";
+        cout << "\nInnleste data om forelesning nr." << i + 1 << ":\n";
+        forelesningSkrivData(&forelesninger[i]);
     }
 
     return 0;
+}
+
+void forelesningLesData(Forelesning *f)
+{
+    cout << "Skriv inn emne: ";
+    cin.getline(f->emne, STRLEN / 2);
+    cout << "\nSkriv inn foreleser: ";
+    cin.getline(f->foreleser, STRLEN);
+    cout << "\nSkriv inn sted: ";
+    cin.getline(f->sted, STRLEN / 2);
+    f->timeStart = lesTall("Time-start", 8, 20);
+    f->minuttStart = lesTall("Minutt-start", 0, 59);
+    f->timeSlutt = lesTall("Time-slutt", f->timeStart + 1, 20);
+    f->minuttSlutt = lesTall("Minutt-Slutt", 0, 59);
+}
+void forelesningSkrivData(const Forelesning *f)
+{
+    cout
+        << "\nEmne: " << f->emne
+        << "\nForeleser: " << f->foreleser
+        << "\nSted: " << f->sted
+        << "\nTimen starter: " << f->timeStart
+        << ":" << f->minuttStart
+        << "\nTimen slutter: " << f->timeSlutt
+        << ":" << f->minuttSlutt << "\n\n";
 }
